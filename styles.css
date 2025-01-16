@@ -1,0 +1,104 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+header {
+  background-color: #007bff;
+  color: white;
+  padding: 1rem;
+}
+
+header h1 {
+  font-size: 1.5rem;
+}
+
+header nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+header nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+header nav ul li a:hover {
+  text-decoration: underline;
+}
+
+.nav-link {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #ffcc00; /* Change to your preferred hover color */
+}
+
+main {
+  padding: 1rem;
+}
+
+form {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+form .form-group {
+  margin-bottom: 1rem;
+}
+
+form .form-group label {
+  font-weight: bold;
+}
+
+form .btn {
+  background-color: #007bff;
+  color: white;
+}
+
+form .btn:hover {
+  background-color: #0056b3;
+}
+
+section h2 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+section .row > div {
+  margin-bottom: 1rem;
+}
+
+footer {
+  background-color: #007bff;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  header nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  header h1 {
+    font-size: 1.25rem;
+  }
+
+  form {
+    padding: 1rem;
+  }
+
+  section h2 {
+    font-size: 1rem;
+  }
+}

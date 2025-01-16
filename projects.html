@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Edushare - Projects</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="styles.css" rel="stylesheet" />
+    <script src="scripts.js"></script>
+  </head>
+  <body class="font-roboto bg-light">
+   
+    <header class="bg-primary text-white p-4">
+      <div class="container d-flex justify-content-between align-items-center">
+        <h1 class="h2 font-weight-bold">Edushare</h1>
+        <nav>
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="research.html">
+                Research Papers
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#" onclick="showSection('upload-project-section')">Upload Project</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    
+    <main class="container py-4">
+      
+
+      <section id="upload-project-section" class="mb-4" style="display: none;">
+        <h2 class="h4 font-weight-bold mb-4">Upload Your Project</h2>
+        <form class="bg-white p-4 rounded shadow-sm">
+          <!-- Instructions -->
+          <p class="text-muted mb-4">
+            Please fill out the form below to upload your project. Ensure that all fields are completed accurately.
+          </p>
+          <!-- Project Title -->
+          <div class="form-group">
+            <label for="projectTitle">Project Title</label>
+            <input
+              type="text"
+              id="projectTitle"
+              class="form-control"
+              placeholder="Enter project title"
+              required
+/>
+          </div>
+          <!-- Project Description -->
+          <div class="form-group">
+            <label for="projectDescription">Project Description</label>
+            <textarea
+              id="projectDescription"
+              class="form-control"
+              rows="4"
+              placeholder="Provide a detailed description of your project"
+              required
+            ></textarea>
+          </div>
+          <!-- Project Category -->
+          <div class="form-group">
+            <label for="projectCategory">Project Category</label>
+            <select id="projectCategory" class="form-control">
+              <option value="" disabled selected>Select category</option>
+              <option value="web">Web Development</option>
+              <option value="ai">Artificial Intelligence</option>
+              <option value="mobile">Mobile Applications</option>
+              <option value="iot">IoT</option>
+              <option value="others">Others</option>
+            </select>
+          </div>
+          <!-- File Upload -->
+          <div class="form-group">
+            <label for="projectFile">Upload Project Files</label>
+            <input
+              type="file"
+              id="projectFile"
+              class="form-control"
+              required
+            />
+            <small class="form-text text-muted">
+              Accepted file types: PDF, PPT, PPTX, DOC, DOCX.
+            </small>
+          </div>
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary">Upload Project</button>
+        </form>
+      </section>
+
+
+      <section id="projects-listing-section" class="mb-4">
+        <h2 class="h4 font-weight-bold mb-4">Explore Shared Projects</h2>
+
+        <div class="mb-4">
+          <div class="form-row">
+            <div class="col">
+              <input
+                type="text"
+                id="searchTitleInput"
+                class="form-control"
+                placeholder="Search by title..."
+                onkeyup="searchProjects()"
+              />
+            </div>
+            <div class="col">
+              <select id="searchCategoryInput" class="form-control" onchange="searchProjects()">
+                <option value="">All Categories</option>
+                <option value="web">Web Development</option>
+                <option value="ai">Artificial Intelligence</option>
+                <option value="mobile">Mobile Applications</option>
+                <option value="iot">IoT</option>
+                <option value="others">Others</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row" id="projectsContainer">
+     
+    
+        
+        </div>
+      </section>
+    </main>
+
+
+    <script src="scripts.js"></script>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduShare - Research Papers</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="styles.css" rel="stylesheet" />
+  <script src="scripts.js"></script>
+</head>
+<body class="font-roboto bg-light">
+  <header class="bg-primary text-white p-4">
+    <div class="container d-flex justify-content-between align-items-center">
+      <h1 class="h2 font-weight-bold">EduShare</h1>
+      <nav>
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="projects.html">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#" onclick="showSection('upload-research')">Upload Research Paper</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container py-4">
+    
+ 
+    <section id="upload-research" class="mb-5" style="display: none;">
+      <h2 class="h4 font-weight-bold mb-4">Upload Your Research Paper</h2>
+      <form class="bg-white p-4 rounded shadow-sm" action="/upload" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="paper-title">Title</label>
+          <input type="text" class="form-control" id="paper-title" name="title" placeholder="Enter the paper title" required />
+        </div>
+        <div class="form-group">
+          <label for="paper-description">Description</label>
+          <textarea class="form-control" id="paper-description" name="description" rows="3" placeholder="Brief description of the paper" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="author-name">Author Name</label>
+          <input type="text" class="form-control" id="author-name" name="author" placeholder="Enter your name" required />
+        </div>
+        <div class="form-group">
+          <label for="paper-file">Upload File</label>
+          <input type="file" class="form-control-file" id="paper-file" name="file" accept=".pdf" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Upload Paper</button>
+      </form>
+    </section>
+
+   
+    <section id="search-research" class="mb-5">
+      <h2 class="h4 font-weight-bold mb-4">Search Research Papers</h2>
+      <form class="bg-white p-4 rounded shadow-sm" method="get" action="/search">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="search-title">Title</label>
+            <input type="text" class="form-control" id="search-title" name="title" placeholder="Search by title" />
+          </div>
+          <div class="form-group col-md-4">
+            <label for="search-category">Category</label>
+            <select class="form-control" id="search-category" name="category">
+              <option value="" selected>All Categories</option>
+              <option value="ECE">ECE</option>
+              <option value="CSE">CSE</option>
+              <option value="Mechanical">Mechanical</option>
+              <option value="Civil">Civil</option>
+            </select>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="search-year">Year</label>
+            <input type="number" class="form-control" id="search-year" name="year" placeholder="2021" />
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+    </section>
+
+    <!-- Display Research Papers Section -->
+    <section id="display-research" class="mb-5" style="display: none;">
+      <h2 class="h4 font-weight-bold mb-4">Available Research Papers</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="bg-white p-4 rounded shadow-sm">
+            <h3 class="h5 font-weight-bold">Research Paper Title 1</h3>
+            <p class="text-muted">Brief description of the research paper.</p>
+            <p class="font-italic text-secondary">Author: John Doe</p>
+            <a href="/path/to/paper1.pdf" class="btn btn-outline-primary btn-sm" download>Download</a>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="bg-white p-4 rounded shadow-sm">
+            <h3 class="h5 font-weight-bold">Research Paper Title 2</h3>
+            <p class="text-muted">Brief description of the research paper.</p>
+            <p class="font-italic text-secondary">Author: Jane Smith</p>
+            <a href="/path/to/paper2.pdf" class="btn btn-outline-primary btn-sm" download>Download</a>
+          </div>
+        </div>
+        <!-- More papers can be dynamically loaded here -->
+      </div>
+    </section>
+  </main>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
