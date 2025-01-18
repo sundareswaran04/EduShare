@@ -31,11 +31,9 @@
   </header>
 
   <main class="container py-4">
-    
- 
     <section id="upload-research" class="mb-5" style="display: none;">
       <h2 class="h4 font-weight-bold mb-4">Upload Your Research Paper</h2>
-      <form class="bg-white p-4 rounded shadow-sm" action="/upload" method="post" enctype="multipart/form-data">
+      <form id="uploadResearchForm" class="bg-white p-4 rounded shadow-sm" action="/upload-research" method="post" enctype="multipart/form-data" onsubmit="handleFormSubmit(event, 'uploadResearchForm', '/upload-research')">
         <div class="form-group">
           <label for="paper-title">Title</label>
           <input type="text" class="form-control" id="paper-title" name="title" placeholder="Enter the paper title" required />
@@ -52,14 +50,37 @@
           <label for="paper-file">Upload File</label>
           <input type="file" class="form-control-file" id="paper-file" name="file" accept=".pdf" required />
         </div>
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select class="form-control" id="category" name="category" required>
+            <option value="" selected disabled>Select Category</option>
+            <option value="AI">AI</option>
+            <option value="Data Science">Data Science</option>
+            <option value="Cybersecurity">Cybersecurity</option>
+            <option value="IoT">IoT</option>
+            <option value="Blockchain">Blockchain</option>
+            <option value="Cloud Computing">Cloud Computing</option>
+            <option value="Quantum Computing">Quantum Computing</option>
+            <option value="Image Processing">Image Processing</option>
+            <option value="Web Development">Web Development</option>
+            <option value="App Development">App Development</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="userId">UserID</label>
+          <input type="text" class="form-control" id="userId" name="userId" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+        </div>
         <button type="submit" class="btn btn-primary">Upload Paper</button>
       </form>
     </section>
 
-   
     <section id="search-research" class="mb-5">
       <h2 class="h4 font-weight-bold mb-4">Search Research Papers</h2>
-      <form class="bg-white p-4 rounded shadow-sm" method="get" action="/search">
+      <form id="searchResearchForm" class="bg-white p-4 rounded shadow-sm" method="get" action="/search" onsubmit="handleSearch(event, 'searchResearchForm', '/search')">
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="search-title">Title</label>
@@ -69,10 +90,16 @@
             <label for="search-category">Category</label>
             <select class="form-control" id="search-category" name="category">
               <option value="" selected>All Categories</option>
-              <option value="ECE">ECE</option>
-              <option value="CSE">CSE</option>
-              <option value="Mechanical">Mechanical</option>
-              <option value="Civil">Civil</option>
+              <option value="AI">AI</option>
+              <option value="Data Science">Data Science</option>
+              <option value="Cybersecurity">Cybersecurity</option>
+              <option value="IoT">IoT</option>
+              <option value="Blockchain">Blockchain</option>
+              <option value="Cloud Computing">Cloud Computing</option>
+              <option value="Quantum Computing">Quantum Computing</option>
+              <option value="Image Processing">Image Processing</option>
+              <option value="Web Development">Web Development</option>
+              <option value="App Development">App Development</option>
             </select>
           </div>
           <div class="form-group col-md-2">
@@ -84,35 +111,212 @@
       </form>
     </section>
 
-    <!-- Display Research Papers Section -->
-    <section id="display-research" class="mb-5" style="display: none;">
+    <section id="display-research" class="mb-5">
       <h2 class="h4 font-weight-bold mb-4">Available Research Papers</h2>
-      <div class="row">
-        <div class="col-md-4 mb-4">
-          <div class="bg-white p-4 rounded shadow-sm">
-            <h3 class="h5 font-weight-bold">Research Paper Title 1</h3>
-            <p class="text-muted">Brief description of the research paper.</p>
-            <p class="font-italic text-secondary">Author: John Doe</p>
-            <a href="/path/to/paper1.pdf" class="btn btn-outline-primary btn-sm" download>Download</a>
-          </div>
-        </div>
-        <div class="col-md-4 mb-4">
-          <div class="bg-white p-4 rounded shadow-sm">
-            <h3 class="h5 font-weight-bold">Research Paper Title 2</h3>
-            <p class="text-muted">Brief description of the research paper.</p>
-            <p class="font-italic text-secondary">Author: Jane Smith</p>
-            <a href="/path/to/paper2.pdf" class="btn btn-outline-primary btn-sm" download>Download</a>
-          </div>
-        </div>
-        <!-- More papers can be dynamically loaded here -->
+      <div class="row" id="research-results">
+        <!-- Results will be dynamically inserted here -->
       </div>
     </section>
   </main>
 
+  <div id="loginPopup" class="modal" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Login</h5>
+          <button type="button" class="close" onclick="closeLoginPopup()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm" onsubmit="handleUnlock(event)">
+            <div class="form-group">
+              <label for="userId">User ID</label>
+              <input type="text" class="form-control" id="userId" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- Instructions Popup -->
+  <div class="modal fade" id="instructionsModal" tabindex="-1" role="dialog" aria-labelledby="instructionsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="instructionsModalLabel">Instructions</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Welcome to EduShare! Here you can upload and search for research papers. Please follow the instructions below:</p>
+          <ul>
+            <li>To upload a research paper, click on "Upload Research Paper" in the navigation menu.</li>
+            <li>Fill in all the required fields and upload your research paper in PDF format.</li>
+            <li>To search for research papers, use the search form on this page.</li>
+            <li>You can preview and download research papers from the search results.</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Got it!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    
+
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!localStorage.getItem('instructionsShown')) {
+        $('#instructionsModal').modal('show');
+        localStorage.setItem('instructionsShown', 'true');
+      }
+
+      fetch('/search-research')
+        .then(response => response.json())
+        .then(data => {
+          const resultsContainer = document.getElementById('research-results');
+          resultsContainer.innerHTML = '';
+          
+          if (data.length === 0) {
+            resultsContainer.innerHTML = "<p>No results found.</p>";
+            return;
+          }
+
+          data.forEach(paper => {
+            const div = document.createElement('div');
+            div.classList.add('col-md-4');
+            div.classList.add('mb-4');
+            
+            // Shorten the description if it exceeds a certain length
+            const shortDescription =
+              paper.description.length > 100
+                ? paper.description.substring(0, 100) + "..."
+                : paper.description;
+
+            // Create the card content
+            div.innerHTML = `
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title"><strong>${paper.title}</strong></h5>
+                  <p class="card-text">${shortDescription}</p>
+                  <p class="card-text"><strong>Author:</strong> ${paper.author}</p>
+                  <p class="card-text"><strong>Category:</strong> ${paper.category}</p>
+                  <p class="card-text"><small class="text-muted">Uploaded on: ${new Date(paper.created_at).toLocaleDateString()}</small></p>
+                  <a href="uploads/${paper.file_path}" class="btn btn-outline-primary btn-sm" download>Download</a>
+                  ${paper.status === 'private' ? '<button class="btn btn-outline-secondary btn-sm" onclick="showUnlockPopup()">Unlock</button>' : ''}
+                </div>
+                ${paper.status === 'private' ? '<div class="overlay">Private</div>' : ''}
+              </div>
+            `;
+            resultsContainer.appendChild(div);
+          });
+        })
+        .catch(error => console.error('Error fetching research papers:', error));
+    });
+
+    function showResearchDetails(paperId) {
+      fetch(`/research-details?id=${paperId}`)
+        .then(response => response.json())
+        .then(data => {
+          const modal = document.getElementById('researchDetailsModal');
+          modal.querySelector('.modal-title').innerText = data.title;
+          modal.querySelector('.modal-body').innerHTML = `
+            <p><strong>Description:</strong> ${data.description}</p>
+            <p><strong>Author:</strong> ${data.author}</p>
+            <p><strong>Category:</strong> ${data.category}</p>
+            <p><strong>Uploaded on:</strong> ${new Date(data.created_at).toLocaleDateString()}</p>
+            <a href="uploads/${data.file_path}" class="btn btn-outline-primary btn-sm" download>Download</a>
+          `;
+          $(modal).modal('show');
+        })
+        .catch(error => {
+          console.error('Error fetching research details:', error);
+          alert('An error occurred while fetching research details.');
+        });
+    }
+
+    function handleFormSubmit(event, formId, actionUrl) {
+      event.preventDefault();
+      const form = document.getElementById(formId);
+      const formData = new FormData(form);
+      fetch(actionUrl, {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Handle success response
+        console.log('Success:', data);
+      })
+      .catch(error => {
+        // Handle error response
+        console.error('Error:', error);
+      });
+    }
+
+    function handleSearch(event, formId, actionUrl) {
+      event.preventDefault();
+      const form = document.getElementById(formId);
+      const formData = new FormData(form);
+      const queryString = new URLSearchParams(formData).toString();
+      fetch(`${actionUrl}?${queryString}`)
+      .then(response => response.json())
+      .then(data => {
+        // Handle success response
+        console.log('Success:', data);
+      })
+      .catch(error => {
+        // Handle error response
+        console.error('Error:', error);
+      });
+    }
+
+    function showUnlockPopup() {
+      $('#loginPopup').modal('show');
+    }
+
+    function handleUnlock(event) {
+      event.preventDefault();
+      const userId = document.getElementById('userId').value;
+      const password = document.getElementById('password').value;
+
+      // Add your unlock logic here
+      // For example, you can send a request to the server to verify the credentials
+      // and unlock the private content
+    }
+  </script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Modal for research details -->
+  <div class="modal fade" id="researchDetailsModal" tabindex="-1" role="dialog" aria-labelledby="researchDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="researchDetailsModalLabel">Research Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Research details will be dynamically inserted here -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

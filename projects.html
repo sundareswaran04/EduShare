@@ -1,130 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Edushare - Projects</title>
-    <link
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link href="styles.css" rel="stylesheet" />
-    <script src="scripts.js"></script>
-  </head>
-  <body class="font-roboto bg-light">
-   
-    <header class="bg-primary text-white p-4">
-      <div class="container d-flex justify-content-between align-items-center">
-        <h1 class="h2 font-weight-bold">Edushare</h1>
-        <nav>
-          <ul class="nav">
-            <li class="nav-item">
-              <a class="nav-link text-white" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="research.html">
-                Research Papers
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#" onclick="showSection('upload-project-section')">Upload Project</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
 
-    
-    <main class="container py-4">
-      
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Edushare - Projects</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="styles.css" rel="stylesheet" />
+  <script src="scripts.js"></script>
+</head>
 
-      <section id="upload-project-section" class="mb-4" style="display: none;">
-        <h2 class="h4 font-weight-bold mb-4">Upload Your Project</h2>
-        <form class="bg-white p-4 rounded shadow-sm">
-          <!-- Instructions -->
-          <p class="text-muted mb-4">
-            Please fill out the form below to upload your project. Ensure that all fields are completed accurately.
-          </p>
-          <!-- Project Title -->
-          <div class="form-group">
-            <label for="projectTitle">Project Title</label>
-            <input
-              type="text"
-              id="projectTitle"
-              class="form-control"
-              placeholder="Enter project title"
-              required
-/>
-          </div>
-          <!-- Project Description -->
-          <div class="form-group">
-            <label for="projectDescription">Project Description</label>
-            <textarea
-              id="projectDescription"
-              class="form-control"
-              rows="4"
-              placeholder="Provide a detailed description of your project"
-              required
-            ></textarea>
-          </div>
-          <!-- Project Category -->
-          <div class="form-group">
-            <label for="projectCategory">Project Category</label>
-            <select id="projectCategory" class="form-control">
-              <option value="" disabled selected>Select category</option>
-              <option value="web">Web Development</option>
-              <option value="ai">Artificial Intelligence</option>
-              <option value="mobile">Mobile Applications</option>
-              <option value="iot">IoT</option>
-              <option value="others">Others</option>
-            </select>
-          </div>
-          <!-- File Upload -->
-          <div class="form-group">
-            <label for="projectFile">Upload Project Files</label>
-            <input
-              type="file"
-              id="projectFile"
-              class="form-control"
-              required
-            />
-            <small class="form-text text-muted">
-              Accepted file types: PDF, PPT, PPTX, DOC, DOCX.
-            </small>
-          </div>
-          <!-- Submit Button -->
-          <button type="submit" class="btn btn-primary">Upload Project</button>
-        </form>
-      </section>
+<body class="font-roboto bg-light">
+
+  <header class="bg-primary text-white p-4">
+    <div class="container d-flex justify-content-between align-items-center">
+      <h1 class="h2 font-weight-bold">Edushare</h1>
+      <nav>
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="research.html">
+              Research Papers
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#" onclick="showSection('upload-project-section')">Upload Project</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
 
-      <section id="projects-listing-section" class="mb-4">
-        <h2 class="h4 font-weight-bold mb-4">Explore Shared Projects</h2>
+  <main class="container py-4">
 
-        <div class="mb-4">
+
+    <section id="upload-project-section" class="mb-4" style="display: none;">
+      <h2 class="h4 font-weight-bold mb-4">Upload Your Project</h2>
+      <form id="uploadProjectForm" class="bg-white p-4 rounded shadow-sm" action="/upload-project" method="post"
+        enctype="multipart/form-data" onsubmit="handleFormSubmit(event, 'uploadProjectForm', '/upload-project')">
+
+        <p class="text-muted mb-4">
+          Please fill out the form below to upload your project. Ensure that all fields are completed accurately.
+        </p>
+        <!-- Project Title -->
+        <div class="form-group">
+          <label for="projectTitle">Project Title</label>
+          <input type="text" id="projectTitle" name="projectTitle" class="form-control"
+            placeholder="Enter project title" required />
+        </div>
+        <!-- Project Description -->
+        <div class="form-group">
+          <label for="projectDescription">Project Description</label>
+          <textarea id="projectDescription" name="projectDescription" class="form-control" rows="4"
+            placeholder="Provide a detailed description of your project" required></textarea>
+        </div>
+        <!-- Project Category -->
+        <div class="form-group">
+          <label for="projectCategory">Project Category</label>
+          <select id="projectCategory" name="projectCategory" class="form-control">
+            <option value="" disabled selected>Select category</option>
+            <option value="web">Web Development</option>
+            <option value="ai">Artificial Intelligence</option>
+            <option value="mobile">Mobile Applications</option>
+            <option value="iot">IoT</option>
+            <option value="others">Others</option>
+          </select>
+        </div>
+        <!-- File Upload -->
+        <div class="form-group">
+          <label for="projectFile">Upload Project Files</label>
+          <input type="file" id="projectFile" name="projectFile" class="form-control" required />
+          <small class="form-text text-muted">
+            Accepted file types: PDF, PPT, PPTX, DOC, DOCX.
+          </small>
+        </div>
+        <!-- User ID -->
+        <div class="form-group">
+          <label for="userId">User ID</label>
+          <input type="text" id="userId" name="userId" class="form-control" placeholder="Enter your User ID" required />
+        </div>
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password"
+            required />
+        </div>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Upload Project</button>
+      </form>
+    </section>
+
+
+    <section id="projects-listing-section" class="mb-4">
+      <h2 class="h4 font-weight-bold mb-4">Explore Shared Projects</h2>
+
+      <div class="mb-4">
+        <form id="searchProjectsForm" onsubmit="handleSearchProject(event, 'searchProjectsForm', '/search-projects')">
           <div class="form-row">
             <div class="col">
-              <input
-                type="text"
-                id="searchTitleInput"
-                class="form-control"
-                placeholder="Search by title..."
-                onkeyup="searchProjects()"
-              />
+              <input type="text" id="searchTitleInput" class="form-control" placeholder="Search by title..." />
             </div>
             <div class="col">
-              <select id="searchCategoryInput" class="form-control" onchange="searchProjects()">
+              <select id="searchCategoryInput" class="form-control"
+                onchange="handleSearchProject(event, 'searchProjectsForm', '/search-projects')">
                 <option value="">All Categories</option>
                 <option value="web">Web Development</option>
                 <option value="ai">Artificial Intelligence</option>
@@ -133,17 +119,273 @@
                 <option value="others">Others</option>
               </select>
             </div>
+            <button type="submit" class="btn btn-primary">Search</button>
           </div>
+        </form>
+      </div>
+      <div class="row" id="projectsContainer">
+        <!-- Results will be dynamically inserted here -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Popup for User ID and Password -->
+  <div id="loginPopup" class="modal" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Login</h5>
+          <button type="button" class="close" onclick="closeLoginPopup()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="row" id="projectsContainer">
-     
-    
+        <div class="modal-body">
+          <form id="loginForm" onsubmit="handleUnlock(event)">
+            <div class="form-group">
+              <label for="userId">User ID</label>
+              <input type="text" class="form-control" id="userId" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Project Details -->
+  <div id="projectDetailsModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Project Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Project details will be dynamically inserted here -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Editing Project -->
+  <div id="editProjectModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Project</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="editProjectForm" onsubmit="handleEditProject(event)">
+            <input type="hidden" id="editProjectId">
+            <div class="form-group">
+              <label for="editProjectTitle">Project Title</label>
+              <input type="text" class="form-control" id="editProjectTitle" required>
+            </div>
+            <div class="form-group">
+              <label for="editProjectDescription">Project Description</label>
+              <textarea class="form-control" id="editProjectDescription" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="editProjectCategory">Project Category</label>
+              <select class="form-control" id="editProjectCategory" required>
+                <option value="web">Web Development</option>
+                <option value="ai">Artificial Intelligence</option>
+                <option value="mobile">Mobile Applications</option>
+                <option value="iot">IoT</option>
+                <option value="others">Others</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="editUserId">User ID</label>
+              <input type="text" class="form-control" id="editUserId" required>
+            </div>
+            <div class="form-group">
+              <label for="editPassword">Password</label>
+              <input type="password" class="form-control" id="editPassword" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Instructions Popup -->
+  <div class="modal fade" id="instructionsModal" tabindex="-1" role="dialog" aria-labelledby="instructionsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="instructionsModalLabel">Instructions</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Welcome to EduShare! Here you can upload and search for projects. Please follow the instructions below:</p>
+          <ul>
+            <li>To upload a project, click on "Upload Project" in the navigation menu.</li>
+            <li>Fill in all the required fields and upload your project file.</li>
+            <li>To search for projects, use the search form on this page.</li>
+            <li>You can preview and download projects from the search results.</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Got it!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Show instructions modal on first entry
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!localStorage.getItem('instructionsShown')) {
+        $('#instructionsModal').modal('show');
+        localStorage.setItem('instructionsShown', 'true');
+      }
+
+      fetch('/search-projects')
+        .then(response => response.json())
+        .then(data => {
+          const resultsContainer = document.getElementById('projectsContainer');
+          resultsContainer.innerHTML = '';
+
+          if (data.length === 0) {
+            resultsContainer.innerHTML = "<p>No results found.</p>";
+            return;
+          }
+
+          data.forEach(project => {
+            const div = document.createElement('div');
+            div.classList.add('col-md-4');
+            div.classList.add('mb-4');
+            div.id = `project-${project.id}`;
+
+            // Shorten the description if it exceeds a certain length
+            const shortDescription =
+              project.description.length > 100
+                ? project.description.substring(0, 100) + "..."
+                : project.description;
+
+
+            div.innerHTML = `
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title"><strong>${project.title}</strong></h5>
+                  <p class="card-text">${shortDescription}</p>
+                  <p class="card-text card-category"><strong>Category:</strong> ${project.category}</p>
+                  <p class="card-text"><strong>Uploaded by:</strong> ${project.uploaded_by}</p>
+                  <p class="card-text"><small class="text-muted">Uploaded on: ${new Date(project.created_at).toLocaleDateString()}</small></p>
+                  <a href="uploads/${project.file_path}" class="btn btn-outline-primary btn-sm" download>Download</a>
+                  ${project.status === 'private' ? '<button class="btn btn-outline-secondary btn-sm" onclick="showUnlockPopup(${project.id})">Unlock</button>' : ''}
+                  <button class="btn btn-outline-secondary btn-sm" onclick="showEditPopup(${project.id})">Edit</button>
+                </div>
+                ${project.status === 'private' ? '<div class="overlay">Private</div>' : ''}
+              </div>
+            `;
+            resultsContainer.appendChild(div);
+          });
+        })
+        .catch(error => console.error('Error fetching projects:', error));
+    });
+
+    function showUnlockPopup(projectId) {
+      $('#loginPopup').modal('show');
+    }
+
+    function handleUnlock(event) {
+      event.preventDefault();
+      const userId = document.getElementById('userId').value;
+      const password = document.getElementById('password').value;
+
+      // Add your unlock logic here
+      // For example, you can send a request to the server to verify the credentials
+      // and unlock the private content
+    }
+
+    function showEditPopup(projectId) {
+      // Add your logic to show the edit popup and populate the form with project details
+    }
+
+    function handleEditProject(event) {
+      event.preventDefault();
+      const projectId = document.getElementById('editProjectId').value;
+      const projectTitle = document.getElementById('editProjectTitle').value;
+      const projectDescription = document.getElementById('editProjectDescription').value;
+      const projectCategory = document.getElementById('editProjectCategory').value;
+      const userId = document.getElementById('editUserId').value;
+      const password = document.getElementById('editPassword').value;
+
+      // Add your logic to update the project details
+
+      $('#editProjectModal').modal('hide');
+
+      // Reload the projects
+      fetch('/search-projects')
+        .then(response => response.json())
+        .then(data => {
+          const resultsContainer = document.getElementById('projectsContainer');
+          resultsContainer.innerHTML = '';
+
+          if (data.length === 0) {
+            resultsContainer.innerHTML = "<p>No results found.</p>";
+            return;
+          }
+
+          data.forEach(project => {
+            const div = document.createElement('div');
+            div.classList.add('col-md-4');
+            div.classList.add('mb-4');
+            div.id = `project-${project.id}`;
+
+            // Shorten the description if it exceeds a certain length
+            const shortDescription =
+              project.description.length > 100
+                ? project.description.substring(0, 100) + "..."
+                : project.description;
+
+            div.innerHTML = `
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title"><strong>${project.title}</strong></h5>
+                  <p class="card-text">${shortDescription}</p>
+                  <p class="card-text card-category"><strong>Category:</strong> ${project.category}</p>
+                  <p class="card-text"><strong>Uploaded by:</strong> ${project.uploaded_by}</p>
+                  <p class="card-text"><small class="text-muted">Uploaded on: ${new Date(project.created_at).toLocaleDateString()}</small></p>
+                  <a href="uploads/${project.file_path}" class="btn btn-outline-primary btn-sm" download>Download</a>
+                  ${project.status === 'private' ? '<button class="btn btn-outline-secondary btn-sm" onclick="showUnlockPopup(${project.id})">Unlock</button>' : ''}
+                  <button class="btn btn-outline-secondary btn-sm" onclick="showEditPopup(${project.id})">Edit</button>
+                </div>
+                ${project.status === 'private' ? '<div class="overlay">Private</div>' : ''}
+              </div>
+            `;
+            resultsContainer.appendChild(div);
+          });
+        })
+        .catch(error => console.error('Error fetching projects:', error));
+
         
-        </div>
-      </section>
-    </main>
 
 
-    <script src="scripts.js"></script>
-  </body>
+    }
+
+
+  </script>
+
+  <script src="scripts.js"></script>
+</body>
+
 </html>
